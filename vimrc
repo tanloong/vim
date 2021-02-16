@@ -48,7 +48,6 @@ map <right> :vertical resize+5<CR>
 set mouse=a
 "jump to the end of a line
 map 9 $
-map s :<nop>
 map S :<nop>
 map <LEADER>s :w<CR>
 map <LEADER>w :q!<CR>
@@ -115,7 +114,7 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'mg979/vim-visual-multi'
 Plug 'terryma/vim-expand-region'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 color snazzy
 let g:mkdp_auto_start = 1
