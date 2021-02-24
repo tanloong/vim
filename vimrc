@@ -56,7 +56,7 @@ map <LEADER>w :q<CR>
 "map R :source $MYVIMRC<CR>
 map R :so %<CR>
 " 在右侧打开Ex界面
-nnoremap gg :set splitright<CR>:vsplit<CR>:Ex<CR>
+nnoremap tt :set splitright<CR>:vsplit<CR>:Ex<CR>
 noremap <LEADER><CR> :nohlsearch<CR>
 noremap @@ @q
 " shutdown errorbell
@@ -64,12 +64,12 @@ set vb t_vb=
 "locate the position of last time
 au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g'\""| endif
 "auto complete
-inoremap ' ''<ESC>i
-inoremap " ""<ESC>i
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap < <><ESC>i
-inoremap { {<CR>}<ESC>O
+"inoremap ' ''<ESC>i
+"inoremap " ""<ESC>i
+"inoremap ( ()<ESC>i
+"inoremap [ []<ESC>i
+"inoremap < <><ESC>i
+"inoremap { {<CR>}<ESC>O
 "jump to place holder to insert something
 map <LEADER><LEADER> <Esc>gg/<<>><CR>:nohlsearch<CR>c4l
 "Quick run by <F5>
