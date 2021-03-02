@@ -1,12 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/tan/.pip'
+let g:netrw_dirhist_1='/home/tan'
+let g:netrw_dirhist_0='/home/tan/literature'
+let g:netrw_dirhist_9='/home/tan/literature/computer_memo'
 let g:netrw_dirhist_8='/home/tan'
 let g:netrw_dirhist_7='/home/tan/.config'
 let g:netrw_dirhist_6='/home/tan/.config/i3'
 let g:netrw_dirhist_5='/home/tan/.config'
 let g:netrw_dirhist_4='/home/tan/.config/i3'
 let g:netrw_dirhist_3='/home/tan/.config/variety'
-let g:netrw_dirhist_2='/home/tan/.config'
-let g:netrw_dirhist_1='/home/tan/.config/eog'
-let g:netrw_dirhist_0='/home/tan/.config'
-let g:netrw_dirhist_9='/home/tan'
