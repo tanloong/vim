@@ -32,7 +32,7 @@ map J 5j<CR>
 map <c-j> 5<c-e>
 map <c-k> 5<c-y>
 "select all
-map <c-a> ggVG
+map <LEADER>a ggVG
 "split windows
 map sl :set splitright<CR>:vsplit<CR>
 map sh :set nosplitright<CR>:vsplit<CR>
@@ -93,6 +93,7 @@ func! CompileRun()
     elseif &filetype == 'sh'
 		:!time bash %
     elseif &filetype == 'python'
+        silent! exec "!clear"
 		exec "!python3 %"
     elseif &filetype == 'html'
 		exec "!firefox % &"
@@ -113,32 +114,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'connorholyday/vim-snazzy'
 Plug 'mg979/vim-visual-multi'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdcommenter'
 call plug#end()
 "color snazzy
 let g:mkdp_auto_start = 1
 let g:mkdp_refresh_slow = 1
 let g:mkdp_open_to_the_world = 1
-"let g:mkdp_open_ip = '192.168.1.6'
 let g:mkdp_port = 8080 
 let g:mkdp_echo_preview_url = 1
 function! g:EchoUrl(url)
 :echo a:url
 endfunction
 let g:mkdp_browserfunc = 'g:EchoUrl'
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-\ pumvisible() ? "\<C-n>" :
-\ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Make <CR> auto-select the first completion item
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-"Use <leader>rn for Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
