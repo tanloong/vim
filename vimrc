@@ -1,5 +1,7 @@
+" 加载文件类型
+filetype plugin on
 set encoding=utf-8
-let mapleader=" "
+" let mapleader=" "
 syntax on
 set backspace=2
 set tabstop=4
@@ -27,42 +29,49 @@ set linebreak
 set noswapfile
 "show filename below
 set laststatus=2
-map K 5k<CR>
-map J 5j<CR>
-map <c-j> 5<c-e>
-map <c-k> 5<c-y>
-"select all
-map <LEADER>a ggVG
-"split windows
+nnoremap j gj
+nnoremap k gk
+nnoremap gk k
+nnoremap gj j
+noremap K 5gk
+noremap J 5gj
+nnoremap <c-j> 5<c-e>
+nnoremap <c-k> 5<c-y>
+" 将两行合并为一行
+nnoremap H J
+" 全选
+map <SPACE>a ggVG
+" 分屏
 map sl :set splitright<CR>:vsplit<CR>
 map sh :set nosplitright<CR>:vsplit<CR>
 map sj :set splitbelow<CR>:split<CR>
 map sk :set nosplitbelow<CR>:split<CR>
-"switch windows
-map <LEADER>l  <c-w>l
-map <LEADER>h  <c-w>h
-map <LEADER>j  <c-w>j
-map <LEADER>k  <c-w>k
-"resize windows by keyboard
+" 将光标移动到下一个窗口
+map <SPACE>l  <c-w>l
+map <SPACE>h  <c-w>h
+map <SPACE>j  <c-w>j
+map <SPACE>k  <c-w>k
+" 修改窗口大小
 nnoremap <left> :vertical resize-5<CR>
 nnoremap <right> :vertical resize+5<CR>
 " 翻页
 nnoremap <up> <c-b>
 nnoremap <down> <c-f>
-"resize windows by mouse
+" 允许用鼠标操作
 set mouse=a
-"jump to the end of a line
+" 去往行尾
 map 9 $
 map s :<nop>
 map S :<nop>
-map <LEADER>s :w<CR>
-map <LEADER>w :q<CR>
-map <LEADER>q :q!<CR>
+map <SPACE>s :w<CR>
+map <SPACE>w :q<CR>
+map <SPACE>q :q!<CR>
 "map R :source $MYVIMRC<CR>
 map R :so %<CR>
-" 在右侧打开Ex界面
-nnoremap tt :set splitright<CR>:vsplit<CR>:Ex<CR>
-noremap <LEADER><CR> :nohlsearch<CR>
+" 在左侧打开Ex界面
+"nnoremap tt :Vexplore<CR>
+nnoremap tt :RangerOpenCurrentDir<CR>
+noremap <SPACE><CR> :nohlsearch<CR>
 " shutdown errorbell
 set vb t_vb=
 "locate the position of last time
@@ -75,18 +84,20 @@ au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g
 "inoremap < <><ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap {} {}<ESC>i
-"jump to place holder to insert something
-map <LEADER><LEADER> <Esc>gg/<<>><CR>:nohlsearch<CR>c4l
+" markdown下简洁地输入粗体字
+autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
+inoremap ,b <Esc>/<<>><CR>:nohlsearch<CR>c4l
 "Quick run by <F5>
 map <F5> :call CompileRun()<CR>
 func! CompileRun()
     exec "w"
 	if &filetype == 'c'
 		silent! exec "!g++ % -o %<"
-		exec "! ./%<"
+        silent! exec "!clear"
+		exec "!./%<"
     elseif &filetype == 'cpp'
 		exec "!g++ % -o %<"
-		exec "! ./%<"
+		exec "!./%<"
     elseif &filetype == 'java'
 		exec "!javac %"
 		exec "!java %<"
@@ -96,13 +107,10 @@ func! CompileRun()
         silent! exec "!clear"
 		exec "!python3 %"
     elseif &filetype == 'html'
-		exec "!firefox % &"
+		exec "!google-chrome % &"
     elseif &filetype == 'go'
 		exec "!go build %<"
 		exec "!go run %"
-    elseif &filetype == 'mkd'
-		exec "!~/.vim/markdown.pl % > %.html &"
-		exec "!firefox %.html &"
     endif
 endfunc
 
@@ -115,6 +123,8 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'mg979/vim-visual-multi'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'preservim/nerdcommenter'
+Plug 'iberianpig/ranger-explorer.vim'
+Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 "color snazzy
 let g:mkdp_auto_start = 1
@@ -126,3 +136,13 @@ function! g:EchoUrl(url)
 :echo a:url
 endfunction
 let g:mkdp_browserfunc = 'g:EchoUrl'
+let g:ranger_map_keys = 0
+let g:NERDCreateDefaultMappings = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" 映射NERDCommentInvert
+let g:NERDCommentInvert = '<SPACE>c'
+let g:table_mode_map_prefix = '<SPACE>t' 
+" 进入或退出table模式时显示提示
+let g:table_mode_verbose = 1
+let g:table_mode_corner='|'
