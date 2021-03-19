@@ -68,10 +68,8 @@ map <SPACE>w :q<CR>
 map <SPACE>q :q!<CR>
 "map R :source $MYVIMRC<CR>
 map R :so %<CR>
-" 在左侧打开Ex界面
-"nnoremap tt :Vexplore<CR>
-nnoremap tt :RangerOpenCurrentDir<CR>
 noremap <SPACE><CR> :nohlsearch<CR>
+"nnoremap tt :Vexplore<CR>
 " shutdown errorbell
 set vb t_vb=
 "locate the position of last time
@@ -127,22 +125,34 @@ Plug 'iberianpig/ranger-explorer.vim'
 Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 "color snazzy
+" ========================
+" === markdown-preview配置
+" ========================
 let g:mkdp_auto_start = 1
 let g:mkdp_refresh_slow = 1
 let g:mkdp_open_to_the_world = 1
 let g:mkdp_port = 8080 
 let g:mkdp_echo_preview_url = 1
-function! g:EchoUrl(url)
-:echo a:url
-endfunction
 let g:mkdp_browserfunc = 'g:EchoUrl'
+" ========================
+" === ranger-explore配置
+" ========================
 let g:ranger_map_keys = 0
-let g:NERDCreateDefaultMappings = 1
+" 在左侧打开Ex界面
+nnoremap tt :RangerOpenCurrentDir<CR>
+" ========================
+" === nerdcommenter配置
+" ========================
+let g:NERDCreateDefaultMappings = 0
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-" 映射NERDCommentInvert
-let g:NERDCommentInvert = '<SPACE>c'
+" 映射NERDCommenterInvert
+map <SPACE>c <plug>NERDCommenterInvert
+" ========================
+" === vim-table-mode配置
+" ========================
+" 设置table mode先导键为<SPACE>t
 let g:table_mode_map_prefix = '<SPACE>t' 
-" 进入或退出table模式时显示提示
+" 进入或退出table模式时给出提示
 let g:table_mode_verbose = 1
 let g:table_mode_corner='|'
