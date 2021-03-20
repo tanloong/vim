@@ -38,7 +38,7 @@ noremap J 5gj
 nnoremap <c-j> 5<c-e>
 nnoremap <c-k> 5<c-y>
 " 将两行合并为一行
-nnoremap H J
+noremap H J
 " 全选
 map <SPACE>a ggVG
 " 分屏
@@ -84,7 +84,7 @@ inoremap { {<CR>}<ESC>O
 inoremap {} {}<ESC>i
 " markdown下简洁地输入粗体字
 autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
-inoremap ,b <Esc>/<<>><CR>:nohlsearch<CR>c4l
+autocmd Filetype markdown :inoremap ,b <Esc>/<<>><CR>:nohlsearch<CR>c4l
 "Quick run by <F5>
 map <F5> :call CompileRun()<CR>
 func! CompileRun()
