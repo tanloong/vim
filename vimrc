@@ -35,10 +35,8 @@ nnoremap gk k
 nnoremap gj j
 noremap K 5gk
 noremap J 5gj
-nnoremap <c-j> 5<c-e>
-nnoremap <c-k> 5<c-y>
-" 将两行合并为一行
-noremap H J
+nnoremap H 5<c-e>
+nnoremap L 5<c-y>
 " 全选
 map <SPACE>a ggVG
 " 分屏
@@ -55,6 +53,8 @@ map <SPACE>k  <c-w>k
 nnoremap <left> :vertical resize-5<CR>
 nnoremap <right> :vertical resize+5<CR>
 " 翻页
+nnoremap <c-j> <c-b>
+nnoremap <c-k> <c-f>
 nnoremap <up> <c-b>
 nnoremap <down> <c-f>
 " 允许用鼠标操作
@@ -117,14 +117,12 @@ endfunc
 " === vim-plug
 " ===
 call plug#begin('~/.vim/plugged')
-Plug 'connorholyday/vim-snazzy'
 Plug 'mg979/vim-visual-multi'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'preservim/nerdcommenter'
 Plug 'iberianpig/ranger-explorer.vim'
 Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
-"color snazzy
 " ========================
 " === markdown-preview配置
 " ========================
