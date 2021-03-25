@@ -138,6 +138,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'preservim/nerdcommenter'
 Plug 'iberianpig/ranger-explorer.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown']}
+Plug 'lervag/vimtex', {'for': ['tex']}
 call plug#end()
 " ========================
 " === markdown-preview配置
