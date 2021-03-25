@@ -22,6 +22,7 @@ set hlsearch
 set incsearch
 exec "nohlsearch"
 set ignorecase
+noremap @@ @q
 "内容超出一行时自动折行
 set wrap
 set linebreak
@@ -35,8 +36,8 @@ nnoremap gk k
 nnoremap gj j
 noremap K 5gk
 noremap J 5gj
-nnoremap H 5<c-e>
-nnoremap L 5<c-y>
+nnoremap <c-j> 5<c-e>
+nnoremap <c-k> 5<c-y>
 " 全选
 map <SPACE>a ggVG
 " 分屏
@@ -53,10 +54,12 @@ map <SPACE>k  <c-w>k
 nnoremap <left> :vertical resize-5<CR>
 nnoremap <right> :vertical resize+5<CR>
 " 翻页
-nnoremap <c-j> <c-b>
-nnoremap <c-k> <c-f>
+nnoremap H <c-b>
+nnoremap L <c-f>
 nnoremap <up> <c-b>
 nnoremap <down> <c-f>
+" 合并两行
+noremap M J
 " 允许用鼠标操作
 set mouse=a
 " 去往行尾
@@ -68,13 +71,17 @@ map <SPACE>w :q<CR>
 map <SPACE>q :q!<CR>
 "map R :source $MYVIMRC<CR>
 map R :so %<CR>
-noremap <SPACE><CR> :nohlsearch<CR>
+noremap <SPACE><CR> :nohlsearch<CR>:set nospell<CR>
 "nnoremap tt :Vexplore<CR>
 " shutdown errorbell
 set vb t_vb=
 "locate the position of last time
 au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g'\""| endif
 "auto complete
+
+" ===
+" === 插入模式
+" ===
 "inoremap ' ''<ESC>i
 "inoremap " ""<ESC>i
 "inoremap ( ()<ESC>i
@@ -82,9 +89,18 @@ au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g
 "inoremap < <><ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap {} {}<ESC>i
-" markdown下简洁地输入粗体字
-autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
-autocmd Filetype markdown :inoremap ,b <Esc>/<<>><CR>:nohlsearch<CR>c4l
+" 跳到行尾
+inoremap <c-e> <c-o>$
+" 跳到行首
+inoremap <c-a> <c-o>0
+" 取消上一次操作
+inoremap <c-z> <c-o>u
+" markdown下输入粗体字快捷键
+" autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
+" autocmd Filetype markdown :inoremap ,b <Esc>/<<>><CR>:nohlsearch<CR>c4l
+autocmd Filetype markdown :inoremap ,a **** <Esc>2hi
+autocmd Filetype markdown :inoremap ,b <Esc>3la
+
 "Quick run by <F5>
 map <F5> :call CompileRun()<CR>
 func! CompileRun()
@@ -121,7 +137,7 @@ Plug 'mg979/vim-visual-multi'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'preservim/nerdcommenter'
 Plug 'iberianpig/ranger-explorer.vim'
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown']}
 call plug#end()
 " ========================
 " === markdown-preview配置
