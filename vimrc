@@ -1,34 +1,33 @@
+set encoding=utf-8
+" 行号
+set number
 " 加载文件类型
 filetype plugin on
-set encoding=utf-8
-" let mapleader=" "
+exec "nohlsearch"
 syntax on
 set backspace=2
 set tabstop=4
 set expandtab
 set shiftwidth=4
 set updatetime=100
-"行号
-set number
-"set relativenumber
-"set cursorline
-"光标垂直移动时保持顶端/底端显示5行
+" 允许用鼠标操作
+set mouse=a
+" 光标垂直移动时保持顶端/底端显示5行
 set scrolloff=5
-"show the typed command at bottom
+" show the typed command at bottom
 set showcmd
-"complete for orders at normal mode
+" Ex模式下按Tab补全命令
 set wildmenu
 set hlsearch
 set incsearch
-exec "nohlsearch"
 set ignorecase
 noremap @@ @q
-"内容超出一行时自动折行
+" 内容超出一行时自动换行
 set wrap
 set linebreak
 " 不要产生交换文件
 set noswapfile
-"show filename below
+" show filename below
 set laststatus=2
 nnoremap j gj
 nnoremap k gk
@@ -40,12 +39,12 @@ nnoremap <c-j> 5<c-e>
 nnoremap <c-k> 5<c-y>
 " 全选
 map <SPACE>a ggVG
-" 分屏
+" 新建窗口
 map sl :set splitright<CR>:vsplit<CR>
 map sh :set nosplitright<CR>:vsplit<CR>
 map sj :set splitbelow<CR>:split<CR>
 map sk :set nosplitbelow<CR>:split<CR>
-" 将光标移动到下一个窗口
+" 切换窗口
 map <SPACE>l  <c-w>l
 map <SPACE>h  <c-w>h
 map <SPACE>j  <c-w>j
@@ -60,8 +59,6 @@ nnoremap <up> <c-y>
 nnoremap <down> <c-e>
 " 合并两行
 noremap M J
-" 允许用鼠标操作
-set mouse=a
 " 去往行尾
 map 9 $
 map s :<nop>
@@ -72,12 +69,10 @@ map <SPACE>q :q!<CR>
 "map R :source $MYVIMRC<CR>
 map R :so %<CR>
 noremap <SPACE><CR> :nohlsearch<CR>:set nospell<CR>
-"nnoremap tt :Vexplore<CR>
 " shutdown errorbell
 set vb t_vb=
-"locate the position of last time
+" 打开文件时跳到上次退出的位置
 au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g'\""| endif
-"auto complete
 
 " ===
 " === 插入模式
@@ -88,24 +83,34 @@ inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 "inoremap < <><ESC>i
 inoremap {} {}<Esc>i
-autocmd Filetype c :inoremap } {<CR>}<ESC>O
-autocmd Filetype cpp :inoremap } {<CR>}<ESC>O
 " 插入模式下跳到],{,)的右侧
 inoremap ,e <Esc>%%a
 " 插入模式下跳到行尾
 inoremap <c-e> <c-o>$
 " 插入模式下跳到行首
 inoremap <c-a> <c-o>0
-" 插入模式下取消上一次操作
+" 插入模式下撤销
 inoremap <c-z> <c-o>u
-" markdown下输入粗体字快捷键
-autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
-autocmd Filetype markdown :inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
-autocmd Filetype tex :inoremap ,a \{} <Esc>2hi
-autocmd Filetype tex :inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
-autocmd Filetype tex :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
+" 跳到占位符
+inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
 
-"Quick run by <F5>
+" 对各类型的文件分别设置快捷键
+autocmd FileType markdown,tex,c,cpp exec ":call AutoSet()"
+func! AutoSet()
+    if &filetype == 'c' || &filetype == 'cpp'
+        :inoremap } <CR>{<CR>}<ESC>O
+        :inoremap `if if ()<CR>{<CR>}<Esc>O<<>><Esc>kki
+        :inoremap `for for ()<CR>{<CR>}<Esc>O<<>><Esc>kki
+        :inoremap `main main ()<CR>{<CR>}<Esc>O
+    elseif &filetype == 'markdown'
+        :inoremap ,a **** <<>><Esc>6hi
+    elseif &filetype == 'tex'
+        :inoremap ,a \{} <Esc>2hi
+        :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
+    endif
+endfunc
+
+" Compile
 map <F5> :call CompileRun()<CR>
 func! CompileRun()
     exec "w"
@@ -133,7 +138,6 @@ func! CompileRun()
     endif
 endfunc
 
-
 " ===
 " === vim-plug
 " ===
@@ -158,8 +162,9 @@ let g:mkdp_browserfunc = 'g:EchoUrl'
 " === ranger-explore配置
 " ========================
 let g:ranger_map_keys = 0
-" 在左侧打开Ex界面
+" 打开ranger
 nnoremap tt :RangerOpenCurrentDir<CR>
+" nnoremap tt :Vexplore<CR>
 " ========================
 " === nerdcommenter配置
 " ========================
