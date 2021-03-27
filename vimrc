@@ -56,8 +56,8 @@ nnoremap <right> :vertical resize+5<CR>
 " 翻页
 nnoremap H <c-b>
 nnoremap L <c-f>
-nnoremap <up> <c-b>
-nnoremap <down> <c-f>
+nnoremap <up> <c-y>
+nnoremap <down> <c-e>
 " 合并两行
 noremap M J
 " 允许用鼠标操作
@@ -84,24 +84,26 @@ au BufReadPost * if line("'\"") > 1 && line("'\'") <= line("$") | exe "normal! g
 " ===
 "inoremap ' ''<ESC>i
 "inoremap " ""<ESC>i
-"inoremap ( ()<ESC>i
-"inoremap [ []<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
 "inoremap < <><ESC>i
-autocmd Filetype c :inoremap { {<CR>}<ESC>O
-autocmd Filetype cpp :inoremap { {<CR>}<ESC>O
 inoremap {} {}<Esc>i
-" 跳到行尾
+autocmd Filetype c :inoremap } {<CR>}<ESC>O
+autocmd Filetype cpp :inoremap } {<CR>}<ESC>O
+" 插入模式下跳到],{,)的右侧
+inoremap ,e <Esc>%%a
+" 插入模式下跳到行尾
 inoremap <c-e> <c-o>$
-" 跳到行首
+" 插入模式下跳到行首
 inoremap <c-a> <c-o>0
-" 取消上一次操作
+" 插入模式下取消上一次操作
 inoremap <c-z> <c-o>u
 " markdown下输入粗体字快捷键
 autocmd Filetype markdown :inoremap ,a **** <<>><Esc>6hi
 autocmd Filetype markdown :inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
 autocmd Filetype tex :inoremap ,a \{} <Esc>2hi
-autocmd Filetype tex :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
 autocmd Filetype tex :inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
+autocmd Filetype tex :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
 
 "Quick run by <F5>
 map <F5> :call CompileRun()<CR>
