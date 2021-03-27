@@ -1,3 +1,5 @@
+" Author: @tanloong
+
 set encoding=utf-8
 " 行号
 set number
@@ -105,7 +107,7 @@ func! AutoSet()
     elseif &filetype == 'markdown'
         :inoremap ,a **** <<>><Esc>6hi
     elseif &filetype == 'tex'
-        :inoremap ,a \{} <Esc>2hi
+        :inoremap ,a \{<<>>} <Esc>6hi
         :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
     endif
 endfunc
@@ -132,9 +134,9 @@ func! CompileRun()
 		exec "!python3 %"
     elseif &filetype == 'html'
 		exec "!google-chrome % &"
-    elseif &filetype == 'go'
-		exec "!go build %<"
-		exec "!go run %"
+    elseif &filetype == 'tex'
+        silent! exec "VimtexStop"
+        silent! exec "VimtexCompile"
     endif
 endfunc
 
