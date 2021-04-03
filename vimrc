@@ -91,6 +91,10 @@ inoremap ,e <Esc>%%a
 inoremap <c-e> <c-o>$
 " 插入模式下跳到行首
 inoremap <c-a> <c-o>0
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
 " 插入模式下撤销
 inoremap <c-z> <c-o>u
 " 跳到占位符
@@ -107,8 +111,8 @@ func! AutoSet()
     elseif &filetype == 'markdown'
         :inoremap ,a **** <<>><Esc>6hi
     elseif &filetype == 'tex'
-        :inoremap ,a \{<<>>} <Esc>6hi
-        :inoremap ,c \[<<>>]{<<>>} <Esc>12hi
+        :inoremap ,a \{<<>>}<Esc>5hi
+        :inoremap ,c \[<<>>]{<<>>}<Esc>11hi
     endif
 endfunc
 
@@ -128,7 +132,8 @@ func! CompileRun()
 		exec "!javac %"
 		exec "!java %<"
     elseif &filetype == 'sh'
-		:!time bash %
+        silent! exec "!clear"
+		exec "!bash %"
     elseif &filetype == 'python'
         silent! exec "!clear"
 		exec "!python3 %"
