@@ -1,10 +1,10 @@
 " Author: @tanloong
 
+set nocompatible
+filetype plugin indent on
 set encoding=utf-8
 " 行号
 set number
-" 加载文件类型
-filetype plugin on
 exec "nohlsearch"
 syntax on
 set backspace=2
@@ -120,11 +120,7 @@ endfunc
 map <F5> :call CompileRun()<CR>
 func! CompileRun()
     exec "w"
-	if &filetype == 'c'
-		silent! exec "!g++ % -o %<"
-        silent! exec "!clear"
-		exec "!./%<"
-    elseif &filetype == 'cpp'
+	if &filetype == 'c' || &filetype == 'cpp'
 		silent! exec "!g++ % -o %<"
         silent! exec "!clear"
 		exec "!./%<"
@@ -135,7 +131,7 @@ func! CompileRun()
         silent! exec "!clear"
 		exec "!bash %"
     elseif &filetype == 'python'
-        silent! exec "!clear"
+        " silent! exec "!clear"
 		exec "!python3 %"
     elseif &filetype == 'html'
 		exec "!google-chrome % &"
