@@ -85,7 +85,7 @@ inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 "inoremap < <><ESC>i
 inoremap {} {}<Esc>i
-" 插入模式下跳到],{,)的右侧
+" 插入模式下跳到],},)的右侧
 inoremap ,e <Esc>%%a
 " 插入模式下跳到行尾
 inoremap <c-e> <c-o>$
@@ -99,6 +99,7 @@ inoremap <c-k> <up>
 inoremap <c-z> <c-o>u
 " 跳到占位符
 inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
+nnoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
 
 " 对各类型的文件分别设置快捷键
 autocmd FileType markdown,tex,c,cpp exec ":call AutoSet()"
@@ -110,6 +111,7 @@ func! AutoSet()
         :inoremap `main main ()<CR>{<CR>}<Esc>O
     elseif &filetype == 'markdown'
         :inoremap ,a **** <<>><Esc>6hi
+        :nnoremap ,a i**** <<>><Esc>6hi
     elseif &filetype == 'tex'
         :inoremap ,a \{<<>>}<Esc>5hi
         :inoremap ,c \[<<>>]{<<>>}<Esc>11hi
@@ -151,6 +153,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'iberianpig/ranger-explorer.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown']}
 Plug 'lervag/vimtex', {'for': ['tex']}
+Plug 'sjl/gundo.vim'
 call plug#end()
 " ========================
 " === markdown-preview配置
