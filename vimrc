@@ -21,6 +21,7 @@ set showcmd
 " Ex模式下按Tab补全命令
 set wildmenu
 set hlsearch
+" 增强?和/搜索功能
 set incsearch
 set ignorecase
 noremap @@ @q
@@ -85,18 +86,8 @@ inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 "inoremap < <><ESC>i
 inoremap {} {}<Esc>i
-" 插入模式下跳到],},)的右侧
+" 插入模式去往到],},)的右侧
 inoremap ,e <Esc>%%a
-" 插入模式下跳到行尾
-inoremap <c-e> <c-o>$
-" 插入模式下跳到行首
-inoremap <c-a> <c-o>0
-inoremap <c-h> <left>
-inoremap <c-l> <right>
-inoremap <c-j> <down>
-inoremap <c-k> <up>
-" 插入模式下撤销
-inoremap <c-z> <c-o>u
 " 跳到占位符
 inoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
 nnoremap ,b <Esc>/<<>><CR>:set nohlsearch<CR>c4l
@@ -153,7 +144,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'iberianpig/ranger-explorer.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown']}
 Plug 'lervag/vimtex', {'for': ['tex']}
-Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 call plug#end()
 " ========================
 " === markdown-preview配置
